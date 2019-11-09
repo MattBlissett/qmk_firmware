@@ -55,6 +55,7 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		git \
 		libnewlib-arm-none-eabi \
 		python3 \
+		python3-pip \
 		unzip \
 		wget \
 		zip
