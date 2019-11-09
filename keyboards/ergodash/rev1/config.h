@@ -81,3 +81,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //5: about 20kbps
 
 #define SPLIT_USB_DETECT
+
+// Custom encoder mod/hack: connected to the following pins (audio and backlight)
+#define ENCODERS_PAD_A { B6 }
+#define ENCODERS_PAD_B { C6 }
+
+// EC11K encoders aren't what most people use.
+#define ENCODER_RESOLUTION 2
