@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
    * |      |      |      |      |Pscree|      |      |                    |      |      |xNUM7 |xNUM8 |xNUM9 |      |      |
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |Insert|      |                    |      |      |xNUM4 |xNUM5 |xNUM6 |      |      |
+   * | Left |  Up  | Down |Right |      |Insert|      |                    |      |      |xNUM4 |xNUM5 |xNUM6 |      |      |
    * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
    * | Shift|      |      |      |CapsLk|      |      |      |      |      |      |      |xNUM1 |xNUM2 |xNUM3 |      | Shift|
    * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
     KC_MUTE,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,                        KC_MSTP, KC_F7,        KC_F8,      KC_F9,     KC_F10,  KC_F11,  KC_F12,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, G(KC_KP_7), G(KC_KP_8), G(KC_KP_9), XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_INS, XXXXXXX,                        XXXXXXX, XXXXXXX, G(KC_KP_4), G(KC_KP_5), G(KC_KP_6), XXXXXXX, XXXXXXX,
+    XXXXXXX, KC_LEFT,   KC_UP, KC_DOWN,KC_RIGHT,  KC_INS, XXXXXXX,                        XXXXXXX, XXXXXXX, G(KC_KP_4), G(KC_KP_5), G(KC_KP_6), XXXXXXX, XXXXXXX,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX,           XXXXXXX,     XXXXXXX,          XXXXXXX, G(KC_KP_1), G(KC_KP_2), G(KC_KP_3), XXXXXXX, KC_RSFT,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,   KC_SPC ,XXXXXXX,     XXXXXXX, KC_SPC , XXXXXXX,                KC_HOME,    KC_PGUP, KC_PGDN,  KC_END
   )
