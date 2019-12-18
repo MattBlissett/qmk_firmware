@@ -7,11 +7,11 @@ extern keymap_config_t keymap_config;
 
 enum custom_keycodes {
   VOLUME = SAFE_RANGE,
-  MEDIA
+  MEDIA,
+  OS_TAB
 };
 
 #define CTRL_ENT RCTL_T(KC_ENT)
-#define SFT_CMPS RSFT_T(KC_APP)
 #define ALT_PGDN LALT_T(KC_PGDN)
 #define ALT_LEFT RALT_T(KC_LEFT)
 
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
    * | Tab  |   Q  |   W  |   E  |   R  |   T  |   `  |                    |   ]  |   Y  |   U  |   I  |   O  |   P  |  [   |
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
-   * |  \   |   A  |   S  |   D  |   F  |   G  |  GUI |                    |  GUI |   H  |   J  |   K  |   L  |   ;  |  '   |
+   * |  \   |   A  |   S  |   D  |   F  |   G  |OS_TAB|                    |Compos|   H  |   J  |   K  |   L  |   ;  |  '   |
    * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |  ESC |                    |  Del |   N  |   M  |   ,  |   .  |   /  | Shift|
    * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
         VOLUME,       KC_1,    KC_2,     KC_3,    KC_4,    KC_5,     KC_6,                              MEDIA,     KC_7,   KC_8,     KC_9,    KC_0,  KC_MINS,   KC_EQL,
         KC_TAB,       KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,   KC_GRV,                            KC_RBRC,     KC_Y,   KC_U,     KC_I,    KC_O,     KC_P,  KC_LBRC,
-       KC_BSLS,       KC_A,    KC_S,     KC_D,    KC_F,    KC_G,  KC_LGUI,                            KC_RGUI,     KC_H,   KC_J,     KC_K,    KC_L,  KC_SCLN,  KC_QUOT,
-       KC_LSFT,       KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,              KC_ESC,        KC_DEL,               KC_N,   KC_M,  KC_COMM,  KC_DOT,  KC_SLSH, SFT_CMPS,
+       KC_BSLS,       KC_A,    KC_S,     KC_D,    KC_F,    KC_G,   OS_TAB,                            KC_RGUI,     KC_H,   KC_J,     KC_K,    KC_L,  KC_SCLN,  KC_QUOT,
+       KC_LSFT,       KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,              KC_ESC,        KC_DEL,               KC_N,   KC_M,  KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
     C(KC_PGUP), C(KC_PGDN), KC_PGUP, ALT_PGDN,          KC_BSPC, KC_LCTL, MO(_LOWER),    MO(_LOWER), CTRL_ENT,   KC_SPC,         ALT_LEFT,   KC_UP,  KC_DOWN, KC_RIGHT
   ),
 
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
    * |      |      |      |      |Pscree|      |      |                    |      |      |xNUM7 |xNUM8 |xNUM9 |      |      |
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
-   * | Left |  Up  | Down |Right |      |Insert|      |                    |      |      |xNUM4 |xNUM5 |xNUM6 |      |      |
+   * | Left |  Up  | Down |Right |      |Insert|      |                    |CapsLk|      |xNUM4 |xNUM5 |xNUM6 |      |      |
    * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
    * | Shift|      |      |      |CapsLk|      |      |      |      |      |      |      |xNUM1 |xNUM2 |xNUM3 |      | Shift|
    * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
     KC_MUTE,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,                        KC_MSTP, KC_F7,        KC_F8,      KC_F9,     KC_F10,  KC_F11,  KC_F12,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, G(KC_KP_7), G(KC_KP_8), G(KC_KP_9), XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_LEFT,   KC_UP, KC_DOWN,KC_RIGHT,  KC_INS, XXXXXXX,                        XXXXXXX, XXXXXXX, G(KC_KP_4), G(KC_KP_5), G(KC_KP_6), XXXXXXX, XXXXXXX,
+    XXXXXXX, KC_LEFT,   KC_UP, KC_DOWN,KC_RIGHT,  KC_INS, XXXXXXX,                        KC_CAPS, XXXXXXX, G(KC_KP_4), G(KC_KP_5), G(KC_KP_6), XXXXXXX, XXXXXXX,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX,           XXXXXXX,     XXXXXXX,          XXXXXXX, G(KC_KP_1), G(KC_KP_2), G(KC_KP_3), XXXXXXX, KC_RSFT,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,   KC_SPC ,XXXXXXX,     XXXXXXX, KC_SPC , XXXXXXX,                KC_HOME,    KC_PGUP, KC_PGDN,  KC_END
   )
@@ -63,9 +63,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static uint16_t key_timer;
 static bool key_repeat;
+static bool window_switching;
+static bool other_key_pressed = true;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VOLUME:
+            other_key_pressed = true;
+
             if (record->event.pressed) {
                 if (timer_elapsed(key_timer) > 300) {
                     key_repeat = false;
@@ -89,7 +93,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
         case MEDIA:
+            other_key_pressed = true;
+
             if (record->event.pressed) {
                 key_timer = timer_read();  // start the timer
                 return false;              // return false to keep the 1 from being sent
@@ -115,6 +122,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_MEDIA_NEXT_TRACK);
                     return false;
                 }
+            }
+            break;
+
+        case OS_TAB:
+            // On the first tap, hold down LEFT_GUI and press TAB.
+            // On subsequent taps, just press TAB.
+            // When a different key is pressed, release LEFT_GUI.
+            if (record->event.pressed) {
+                if (!window_switching) {
+                    register_code(KC_LGUI);
+                    other_key_pressed = false;
+                }
+            } else {
+                if (other_key_pressed) {
+                    unregister_code(KC_LGUI);
+                } else {
+                    register_code(KC_TAB);
+                    unregister_code(KC_TAB);
+                    window_switching = true;
+                }
+            }
+            break;
+
+        default:
+            other_key_pressed = true;
+            if (window_switching) {
+                window_switching = false;
+                unregister_code(KC_LGUI);
             }
             break;
     }
