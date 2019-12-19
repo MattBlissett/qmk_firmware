@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
         VOLUME,       KC_1,    KC_2,     KC_3,    KC_4,    KC_5,     KC_6,                              MEDIA,     KC_7,   KC_8,     KC_9,    KC_0,  KC_MINS,   KC_EQL,
         KC_TAB,       KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,   KC_GRV,                            KC_RBRC,     KC_Y,   KC_U,     KC_I,    KC_O,     KC_P,  KC_LBRC,
-       KC_BSLS,       KC_A,    KC_S,     KC_D,    KC_F,    KC_G,   OS_TAB,                            KC_RGUI,     KC_H,   KC_J,     KC_K,    KC_L,  KC_SCLN,  KC_QUOT,
+       KC_BSLS,       KC_A,    KC_S,     KC_D,    KC_F,    KC_G,   OS_TAB,                             KC_APP,     KC_H,   KC_J,     KC_K,    KC_L,  KC_SCLN,  KC_QUOT,
        KC_LSFT,       KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,              KC_ESC,        KC_DEL,               KC_N,   KC_M,  KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
     C(KC_PGUP), C(KC_PGDN), KC_PGUP, ALT_PGDN,          KC_BSPC, KC_LCTL, MO(_LOWER),    MO(_LOWER), CTRL_ENT,   KC_SPC,         ALT_LEFT,   KC_UP,  KC_DOWN, KC_RIGHT
   ),
@@ -126,16 +126,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case OS_TAB:
-            // On the first tap, hold down LEFT_GUI and press TAB.
-            // On subsequent taps, just press TAB.
-            // When a different key is pressed, release LEFT_GUI.
+            // On the first tap, hold down LEFT_GUI.
+            // If other keys are pressed, then when released, release LEFT_GUI.
+            // If the key was held down (to OS + mouse drag), release LEFT_GUI.
+            // Otherwise, press TAB on each successive release.
             if (record->event.pressed) {
+                key_timer = timer_read();
                 if (!window_switching) {
                     register_code(KC_LGUI);
                     other_key_pressed = false;
                 }
             } else {
-                if (other_key_pressed) {
+                if (other_key_pressed || timer_elapsed(key_timer) > 250) {
+                    window_switching = false;
                     unregister_code(KC_LGUI);
                 } else {
                     register_code(KC_TAB);
