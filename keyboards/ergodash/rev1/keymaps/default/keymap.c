@@ -234,7 +234,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+        switch(biton32(layer_state)) {
+            case _LOWER:
+                clockwise ? tap_code(KC_MS_WH_DOWN) : tap_code(KC_MS_WH_UP);
+                break;
+            default:
+                clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+                break;
+        }
     } else if (index == 1) {
         switch(biton32(layer_state)) {
             case _LOWER:

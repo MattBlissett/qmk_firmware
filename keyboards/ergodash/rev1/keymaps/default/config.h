@@ -32,5 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
+#define MK_3_SPEED
+#define MK_W_OFFSET_UNMOD 15
+#define MK_MOMENTARY_ACCEL
 #define COMBO_COUNT 12
 #define COMBO_TERM 75
