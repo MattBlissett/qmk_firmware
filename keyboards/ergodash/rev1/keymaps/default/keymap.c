@@ -232,6 +232,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+// Release L_GUI if window-switching has finished.
+void matrix_scan_user(void) {
+    if (window_switching) {
+        if (timer_elapsed(key_timer) > 1250) {
+            window_switching = false;
+            unregister_code(KC_LGUI);
+        }
+    }
+}
+
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch(biton32(layer_state)) {
