@@ -16,7 +16,6 @@ enum custom_keycodes {
 #define CTRL_ENT RCTL_T(KC_ENT)
 #define ALT_PGDN LALT_T(KC_PGDN)
 #define ALT_LEFT RALT_T(KC_LEFT)
-#define OS_CMPSE LGUI_T(KC_APP)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -26,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
    * | Tab  |   Q  |   W  |   E  |   R  |   T  |   `  |                    |   ]  |   Y  |   U  |   I  |   O  |   P  |  [   |
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
-   * |  \   |   A  |   S  |   D  |   F  |   G  |OS-Tab|                    |OS-Cps|   H  |   J  |   K  |   L  |   ;  |  '   |
+   * |  \   |   A  |   S  |   D  |   F  |   G  |OS-Tab|                    |Compse|   H  |   J  |   K  |   L  |   ;  |  '   |
    * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |  ESC |                    |  Del |   N  |   M  |   ,  |   .  |   /  | Shift|
    * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
@@ -36,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
         VOLUME,       KC_1,    KC_2,     KC_3,    KC_4,    KC_5,     KC_6,                             MEDIA1,     KC_7,   KC_8,     KC_9,    KC_0,  KC_MINS,   KC_EQL,
         KC_TAB,       KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,   KC_GRV,                            KC_RBRC,     KC_Y,   KC_U,     KC_I,    KC_O,     KC_P,  KC_LBRC,
-       KC_BSLS,       KC_A,    KC_S,     KC_D,    KC_F,    KC_G,   OS_TAB,                           OS_CMPSE,     KC_H,   KC_J,     KC_K,    KC_L,  KC_SCLN,  KC_QUOT,
+       KC_BSLS,       KC_A,    KC_S,     KC_D,    KC_F,    KC_G,   OS_TAB,                             KC_APP,     KC_H,   KC_J,     KC_K,    KC_L,  KC_SCLN,  KC_QUOT,
        KC_LSFT,       KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,              KC_ESC,        KC_DEL,               KC_N,   KC_M,  KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
     C(KC_PGUP), C(KC_PGDN), KC_PGUP, ALT_PGDN,          KC_BSPC,  KC_LCTL,MO(_LOWER),    MO(_LOWER), CTRL_ENT,   KC_SPC,         ALT_LEFT,   KC_UP,  KC_DOWN, KC_RIGHT
   ),
@@ -51,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
    * | Shift|      |      |      |CapsLk|M-Ply2|      |      |      |      |      |M-Ply1|xNUM1 |xNUM2 |xNUM3 |      | Shift|
    * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
-   * |      |      |      |      ||||||||      |      |      ||||||||      |      |      |||||||| Home |PageUp|PageDn| End  |
+   * |      |      |      |      ||||||||      |Middle|      ||||||||      |Middle|      |||||||| Home |PageUp|PageDn| End  |
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
   [_LOWER] = LAYOUT(
@@ -59,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, DM_REC2, XXXXXXX,                        XXXXXXX, DM_REC1, G(KC_KP_7), G(KC_KP_8), G(KC_KP_9), XXXXXXX, XXXXXXX,
     XXXXXXX, KC_LEFT,   KC_UP, KC_DOWN,KC_RIGHT,  KC_INS, XXXXXXX,                        KC_CAPS, DM_RSTP, G(KC_KP_4), G(KC_KP_5), G(KC_KP_6), XXXXXXX, XXXXXXX,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, DM_PLY2,           XXXXXXX,     XXXXXXX,          DM_PLY1, G(KC_KP_1), G(KC_KP_2), G(KC_KP_3), XXXXXXX, KC_RSFT,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX,                KC_HOME,    KC_PGUP, KC_PGDN,  KC_END
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, KC_BTN3,  XXXXXXX,     XXXXXXX, KC_BTN3, XXXXXXX,                KC_HOME,    KC_PGUP, KC_PGDN,  KC_END
   )
 
 };
@@ -195,7 +194,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     other_key_pressed = false;
                 }
             } else {
-                if (timer_elapsed(key_timer) > 250) {
+                if (other_key_pressed || timer_elapsed(key_timer) > 250) {
                     window_switching = false;
                     unregister_code(KC_LGUI);
                 } else {
@@ -208,9 +207,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case KC_G:
+        case KC_I:
             // If window switching, hold shift to switch in the opposite direction.
             if (window_switching) {
                 if (record->event.pressed) {
+                    key_timer = timer_read();
                     register_code(KC_LSFT);
                 } else {
                     register_code(KC_TAB);
